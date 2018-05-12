@@ -1,0 +1,29 @@
+.App {
+  display: flex;
+  margin: 0;
+}
+
+p {
+  font-size: 16px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0px;
+}
+
+/*** SIDEBAR ***/
+
+.side-bar {
+  width: 224px;
+  background-color: #efefef;
+  padding-left: 24px;
+  height: 100vh;
+}
+
+#room-list {
+}
+
+.room {
+  line-height: 32px;
+}
