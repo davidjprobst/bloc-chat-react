@@ -23,7 +23,8 @@ class MessageList extends Component {
   render() {
 
     let activeRoomMessages = this.state.messages.filter(message => message.roomId === this.props.activeRoom);
-    
+    console.log(this.state.messages.roomId);
+
     return (
       <section>
         <ul id="messages-list">
