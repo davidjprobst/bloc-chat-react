@@ -27,3 +27,8 @@ ul {
 .room {
   line-height: 32px;
 }
+
+.message {
+  line-height: 8px;
+  padding: 16px;
+}

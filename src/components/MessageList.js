@@ -22,18 +22,19 @@ class MessageList extends Component {
 
   render() {
 
-    let activeRoomMessages = this.state.messages.filter(message => message.roomId === this.props.activeRoom);
-    console.log(this.state.messages.roomId);
+    let activeRoomMessages = this.state.messages.filter(message => message.roomId === this.props.activeRoom.key);
 
     return (
       <section>
-        <ul id="messages-list">
-          {activeRoomMessages.map( (message, index) =>
-            <li className="message" key={index}>
-              {message.content}
-            </li>
-          )}
-        </ul>
+        {
+          activeRoomMessages.map( (message, index) =>
+          <div key={index} className="message">
+            <p>{message.username}</p>
+            <p>{message.sentAt}</p>
+            <p>{message.content}</p>
+          </div>
+          )
+        }
       </section>
     );
   }
