@@ -4,7 +4,15 @@ class User extends Component {
 
   componentDidMount() {
     this.props.firebase.auth().onAuthStateChanged( user => {
-    this.props.setUser(user);
+    if (user === null) {
+      this.props.setUser("Guest")
+      document.getElementById("sign-out").style.display = "none";
+      document.getElementById("sign-in").style.display = "block";
+    } else {
+      this.props.setUser(user.displayName);
+      document.getElementById("sign-in").style.display = "none";
+      document.getElementById("sign-out").style.display = "block";
+    }
     });
   }
 
@@ -12,22 +20,13 @@ class User extends Component {
 
     const provider = new this.props.firebase.auth.GoogleAuthProvider();
 
-    let displayName;
-    if (this.props.user === null) {
-      displayName = (
-        <h3>Guest</h3>
-      )
-    } else {
-      displayName = (
-        <h3>{ this.props.user.displayName }</h3>
-      )
-    }
-
     return (
       <section>
-        <div>{ displayName } </div>
-          <button onClick= { () => this.props.firebase.auth().signInWithPopup( provider ) }>Sign In</button>
-          <button onClick= { () => this.props.firebase.auth().signOut() }>Sign Out</button>
+        <div>
+          <h3>{ this.props.user }</h3>
+        </div>
+          <button  id="sign-in" onClick= { () => this.props.firebase.auth().signInWithPopup( provider ) }>Sign In</button>
+          <button id="sign-out" onClick= { () => this.props.firebase.auth().signOut() }>Sign Out</button>
       </section>
     );
   }

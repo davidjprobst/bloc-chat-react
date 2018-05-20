@@ -25,6 +25,8 @@ class RoomList extends Component {
     if (!this.state.newRoomName) { return }
     const newRoomName = this.state.newRoomName
     this.roomsRef.push({ name: newRoomName });
+    const addRoom =  document.getElementById("add-room");
+    addRoom.reset();
   }
 
   handleInputChange(e) {
@@ -33,22 +35,25 @@ class RoomList extends Component {
   }
 
   render() {
+  //  this.props.setDefaultRoom(defaultRoom);
 
     return (
       <section>
-        <p>{this.props.activeRoom.name}</p>
         <ul  id="room-list">
           {this.state.rooms.map( (room, index) =>
             <li
               className="room"
               key={index}
-              onClick = { () => this.props.setActiveRoom(room) }>{room.name}
+              onClick = { () => this.props.setActiveRoom(room) }
+            >
+            {room.name}
             </li>
-          )}
+            )
+          }
         </ul>
-        <form className="add-room" onSubmit = { (e) => this.handleSubmit(e) }>
+        <form id="add-room" onSubmit = { (e) => this.handleSubmit(e) }>
           <input type="text" value={ this.state.newRoomName } onChange = { (e) => this.handleInputChange(e) }/>
-          <input type="submit" />
+          <button id="add-room-btn">Add Room</button>
         </form>
       </section>
     );
