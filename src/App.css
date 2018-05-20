@@ -12,6 +12,17 @@ ul {
   padding: 0px;
 }
 
+main {
+  width: 100%;
+  padding: 16px;
+}
+
+button {
+  height: 40px;
+  background-color: #ebebeb;
+  border: none;
+}
+
 /*** SIDEBAR ***/
 
 .side-bar {
@@ -29,6 +40,55 @@ ul {
 }
 
 .message {
-  line-height: 8px;
-  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.message-username {
+  font-weight: bold;
+  order: 1;
+  flex: 1;
+  margin: 0;
+}
+
+.message-time {
+  float: right;
+  order: 2;
+  text-align: right;
+  margin: 0;
+}
+
+.message-content {
+  order: 3;
+  width: 100%;
+  padding: 8px 0 0 0;
+  margin: 0;
+}
+
+#message-view {
+  height: 76vh;
+  overflow: scroll;
+}
+
+#send-message {
+  padding: 16px 0;
+  border-top: 1px solid #ebebeb;
+  bottom: 0px;
+  display: flex;
+  flex-grow: 1;
+  position: absolute;
+  width: 81%;
+  background-color: #ffffff;
+}
+
+#message-text {
+  flex-grow: 1;
+  padding: 0px 8px;
+  border: 2px solid #ebebeb;
+  height: 40px;
+}
+
+#send-btn {
+  width: 100px;
 }
