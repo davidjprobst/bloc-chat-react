@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
+import User from './components/User'
 import * as firebase from 'firebase';
 
 // Initialize Firebase
@@ -21,7 +22,8 @@ class App extends Component {
     super (props);
 
     this.state = {
-      activeRoom: " "
+      activeRoom: "",
+      user: ""
     };
 
     this.setActiveRoom = this.setActiveRoom.bind(this)
@@ -29,6 +31,10 @@ class App extends Component {
 
     setActiveRoom(room) {
       this.setState({ activeRoom: room });
+    }
+
+    setUser(user) {
+      this.setState({ user: user });
     }
 
   render() {
@@ -41,6 +47,11 @@ class App extends Component {
             activeRoom={this.state.activeRoom}
             setActiveRoom={this.setActiveRoom.bind(this)}
           />
+          <User
+          firebase={firebase}
+          user={this.state.user}
+          setUser={this.setUser.bind(this)}
+          />
         </aside>
         <main>
           <MessageList
@@ -48,7 +59,6 @@ class App extends Component {
             activeRoom={this.state.activeRoom}
             setActiveRoom={this.setActiveRoom.bind(this)}
           />
-
         </main>
       </div>
     );
