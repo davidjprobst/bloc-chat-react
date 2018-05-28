@@ -17,7 +17,20 @@ class RoomList extends Component {
       const room = snapshot.val();
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat( room ) })
+      this.setDefaultRoom();
     });
+    this.roomsRef.on('child_removed', snapshot => {
+      const room = snapshot.val();
+      room.key = snapshot.key;
+      this.setState({ rooms: this.state.rooms.filter( rooms => rooms.key !== room.key ) });
+    });
+  }
+
+  setDefaultRoom(clickedRoom){
+    if (this.props.activeRoom === '') {
+      let defaultRoom = this.state.rooms[0];
+      this.props.setActiveRoom(defaultRoom);
+    } else { return };
   }
 
   handleSubmit(e) {
@@ -25,8 +38,7 @@ class RoomList extends Component {
     if (!this.state.newRoomName) { return }
     const newRoomName = this.state.newRoomName
     this.roomsRef.push({ name: newRoomName });
-    const addRoom =  document.getElementById("add-room");
-    addRoom.reset();
+    document.getElementById("added-room").reset();
   }
 
   handleInputChange(e) {
@@ -34,8 +46,11 @@ class RoomList extends Component {
     this.setState({ newRoomName: e.target.value });
   }
 
+  handleDelete(room) {
+    this.roomsRef.child(room.key).remove();
+  }
+
   render() {
-  //  this.props.setDefaultRoom(defaultRoom);
 
     return (
       <section>
@@ -44,14 +59,14 @@ class RoomList extends Component {
             <li
               className="room"
               key={index}
-              onClick = { () => this.props.setActiveRoom(room) }
             >
-            {room.name}
+              <span onClick = { () => this.props.setActiveRoom(room) }>{room.name}</span>
+              <ion-icon name="trash" onClick={ () => this.handleDelete(room) }></ion-icon>
             </li>
             )
           }
         </ul>
-        <form id="add-room" onSubmit = { (e) => this.handleSubmit(e) }>
+        <form id="added-room" onSubmit = { (e) => this.handleSubmit(e) }>
           <input type="text" value={ this.state.newRoomName } onChange = { (e) => this.handleInputChange(e) }/>
           <button id="add-room-btn">Add Room</button>
         </form>
